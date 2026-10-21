@@ -698,12 +698,39 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 18px 30px;
   min-height: 77px;
   padding: 12px 7.1%;
   border-top: 1px solid var(--line);
   color: #778178;
   font-size: 9px;
+}
+
+.footer-info {
+  display: flex;
+  flex: 1 1 400px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+}
+
+.footer-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.footer-contacts a {
+  color: var(--green);
+}
+
+.footer-contacts a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-location {
+  flex: 0 0 auto;
 }
 
 .footer-brand {
@@ -732,6 +759,36 @@ select {
 @keyframes content-arrive {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+html.aos-ready [data-aos] {
+  opacity: 0;
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .7, .2, 1);
+}
+
+html.aos-ready [data-aos="fade-up"] {
+  transform: translate3d(0, 24px, 0);
+}
+
+html.aos-ready [data-aos="fade-left"] {
+  transform: translate3d(24px, 0, 0);
+}
+
+html.aos-ready [data-aos="fade-right"] {
+  transform: translate3d(-24px, 0, 0);
+}
+
+html.aos-ready [data-aos].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+html.aos-ready .home-card:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+html.aos-ready .home-card:nth-child(3) {
+  transition-delay: 200ms;
 }
 
 @media (max-width: 900px) {
@@ -784,6 +841,11 @@ select {
 }
 
 @media (max-width: 680px) {
+  html.aos-ready [data-aos="fade-left"],
+  html.aos-ready [data-aos="fade-right"] {
+    transform: translate3d(0, 24px, 0);
+  }
+
   .site-header {
     height: auto;
     min-height: 72px;
@@ -982,7 +1044,13 @@ select {
     font-size: 8px;
   }
 
-  .site-footer > span:nth-child(2) {
+  .footer-info {
+    flex: 1 1 100%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-location {
     order: 3;
     width: 100%;
   }
@@ -995,5 +1063,11 @@ select {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  html.aos-ready [data-aos] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const homes = [
   {
@@ -29,8 +29,10 @@ const homes = [
   },
 ];
 
+const whatsappNumber = "6287715332228";
+
 const whatsappLink = (message: string) =>
-  `https://wa.me/?text=${encodeURIComponent(message)}`;
+  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 const formatRupiah = (value: number) =>
   new Intl.NumberFormat("id-ID", {
@@ -44,6 +46,40 @@ export default function Home() {
   const [downPayment, setDownPayment] = useState(20);
   const [term, setTerm] = useState(20);
   const [interestRate, setInterestRate] = useState(8);
+
+  useEffect(() => {
+    const animatedElements = document.querySelectorAll<HTMLElement>("[data-aos]");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      animatedElements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      animatedElements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" },
+    );
+
+    document.documentElement.classList.add("aos-ready");
+    animatedElements.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("aos-ready");
+    };
+  }, []);
 
   const loanAmount = propertyPrice * (1 - downPayment / 100);
   const monthlyRate = interestRate / 100 / 12;
@@ -109,22 +145,24 @@ export default function Home() {
       </section>
 
       <section className="intro section-wrap" id="tentang">
-        <div className="intro-label">
+        <div className="intro-label" data-aos="fade-up">
           <span className="eyebrow">TENTANG INTAN RESIDENCE</span>
           <span className="section-number">01 — 03</span>
         </div>
-        <div className="intro-body">
+        <div className="intro-body" data-aos="fade-up">
           <h2>Lebih dari sekadar memilih rumah.</h2>
           <p>
             Kami mendampingi Anda dari pencarian rumah hingga memahami proses
             pembelian. Dapatkan informasi tipe dan harga, cek ketersediaan unit,
             jadwalkan kunjungan, dan bicarakan pilihan pembiayaan bersama tim kami.
+            Intan Residence merupakan kantor pemasaran perumahan dari PT Cemerlang
+            Duta Persada.
           </p>
           <a className="text-link" href="#lokasi">
             Kenali lokasi kami <span aria-hidden="true">↗</span>
           </a>
         </div>
-        <div className="intro-stat">
+        <div className="intro-stat" data-aos="fade-up">
           <span className="stat-mark">IR</span>
           <span>Ruang untuk tumbuh,<br />mulai dari rumah.</span>
         </div>
@@ -132,7 +170,7 @@ export default function Home() {
 
       <section className="homes-section" id="hunian">
         <div className="section-wrap">
-          <div className="section-heading">
+          <div className="section-heading" data-aos="fade-up">
             <div>
               <span className="eyebrow">PILIHAN HUNIAN</span>
               <h2>Temukan yang paling pas.</h2>
@@ -144,7 +182,7 @@ export default function Home() {
           </div>
           <div className="home-grid">
             {homes.map((home, index) => (
-              <article className="home-card" key={home.name}>
+              <article className="home-card" key={home.name} data-aos="fade-up">
                 <div
                   className="home-image"
                   style={{ backgroundImage: `url("${home.image}")` }}
@@ -188,7 +226,7 @@ export default function Home() {
 
       <section className="calculator-section" id="simulasi">
         <div className="section-wrap calculator-layout">
-          <div className="calculator-copy">
+          <div className="calculator-copy" data-aos="fade-right">
             <span className="eyebrow">LANGKAH BERIKUTNYA</span>
             <h2>Rencanakan cicilan, dengan lebih tenang.</h2>
             <p>
@@ -208,7 +246,7 @@ export default function Home() {
               Konsultasi via WhatsApp <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <div className="calculator-panel">
+          <div className="calculator-panel" data-aos="fade-left">
             <div className="calculator-panel-head">
               <span>ESTIMASI PEMBIAYAAN</span>
               <span className="calculator-symbol">⌂</span>
@@ -300,8 +338,8 @@ export default function Home() {
       </section>
 
       <section className="visit-section section-wrap" id="lokasi">
-        <div className="visit-mark" aria-hidden="true">IR</div>
-        <div className="visit-copy">
+        <div className="visit-mark" data-aos="fade-up" aria-hidden="true">IR</div>
+        <div className="visit-copy" data-aos="fade-up">
           <span className="eyebrow">KUNJUNGI KAMI</span>
           <h2>Lihat langsung, rasakan suasananya.</h2>
           <p>
@@ -309,7 +347,7 @@ export default function Home() {
             Jawa Barat 16920
           </p>
         </div>
-        <div className="visit-actions">
+        <div className="visit-actions" data-aos="fade-up">
           <a
             className="button button-dark"
             href="https://maps.app.goo.gl/1Mqfr7zMdu81b1787"
@@ -337,8 +375,28 @@ export default function Home() {
             <small>RESIDENCE</small>
           </span>
         </a>
-        <span>Kantor pemasaran perumahan · Bojonggede, Bogor</span>
-        <span>Intan Residence</span>
+        <div className="footer-info">
+          <span>Intan Residence by PT Cemerlang Duta Persada</span>
+          <div className="footer-contacts">
+            <a href="tel:+6287715332228">0877 1533 2228</a>
+            <a href="mailto:CEMERLANGDUTAPERSA@GMAIL.COM">Email</a>
+            <a
+              href="https://www.instagram.com/cemerlangdutapersada/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+            <a
+              href={whatsappLink("Halo Intan Residence, saya ingin berkonsultasi tentang rumah.")}
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <span className="footer-location">Susukan, Bojonggede · Bogor 16920</span>
       </footer>
     </main>
   );
