@@ -1,69 +1,345 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+const homes = [
+  {
+    name: "Tipe Asri 36",
+    detail: "2 kamar tidur · 1 kamar mandi · 1 carport",
+    price: 350_000_000,
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",
+    label: "Pilihan keluarga",
+  },
+  {
+    name: "Tipe Harmoni 45",
+    detail: "2 kamar tidur · 1 kamar mandi · 1 carport",
+    price: 425_000_000,
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85",
+    label: "Ruang lebih lega",
+  },
+  {
+    name: "Tipe Keluarga 60",
+    detail: "3 kamar tidur · 2 kamar mandi · 1 carport",
+    price: 560_000_000,
+    image:
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=85",
+    label: "Siap berkembang",
+  },
+];
+
+const whatsappLink = (message: string) =>
+  `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+const formatRupiah = (value: number) =>
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(value);
 
 export default function Home() {
+  const [propertyPrice, setPropertyPrice] = useState(350_000_000);
+  const [downPayment, setDownPayment] = useState(20);
+  const [term, setTerm] = useState(20);
+  const [interestRate, setInterestRate] = useState(8);
+
+  const loanAmount = propertyPrice * (1 - downPayment / 100);
+  const monthlyRate = interestRate / 100 / 12;
+  const months = term * 12;
+  const monthlyPayment =
+    monthlyRate === 0
+      ? loanAmount / months
+      : (loanAmount * monthlyRate) /
+        (1 - Math.pow(1 + monthlyRate, -months));
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main>
+      <header className="site-header">
+        <a className="brand" href="#beranda" aria-label="Intan Residence, beranda">
+          <span className="brand-mark">IR</span>
+          <span className="brand-name">
+            <strong>INTAN</strong>
+            <small>RESIDENCE</small>
+          </span>
+        </a>
+        <nav className="main-nav" aria-label="Navigasi utama">
+          <a href="#tentang">Tentang</a>
+          <a href="#hunian">Pilihan hunian</a>
+          <a href="#simulasi">Simulasi KPR</a>
+          <a href="#lokasi">Lokasi</a>
+        </nav>
+        <a
+          className="header-cta"
+          href={whatsappLink("Halo Intan Residence, saya ingin berkonsultasi tentang rumah.")}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hubungi kami <span aria-hidden="true">↗</span>
+        </a>
+      </header>
+
+      <section className="hero" id="beranda">
+        <div className="hero-photo" role="img" aria-label="Rumah modern dengan taman yang asri" />
+        <div className="hero-shade" />
+        <div className="hero-content">
+          <p className="eyebrow hero-eyebrow">RUMAH NYAMAN, LANGKAH PERTAMA YANG BERARTI</p>
+          <h1>Temukan rumah yang terasa seperti pulang.</h1>
+          <p className="hero-copy">
+            Pilihan hunian untuk cerita baru Anda, di lingkungan yang tumbuh di
+            Susukan, Bojonggede.
+          </p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#hunian">
+              Lihat pilihan rumah <span aria-hidden="true">↓</span>
+            </a>
+            <a className="button button-quiet" href="#simulasi">
+              Hitung cicilan KPR
+            </a>
+          </div>
+          <div className="hero-note">
+            <span className="note-dot" />
+            Kantor pemasaran perumahan · Bojonggede, Bogor
+          </div>
+        </div>
+        <div className="hero-index" aria-hidden="true">
+          <span>01</span> / 03
+        </div>
+      </section>
+
+      <section className="intro section-wrap" id="tentang">
+        <div className="intro-label">
+          <span className="eyebrow">TENTANG INTAN RESIDENCE</span>
+          <span className="section-number">01 — 03</span>
+        </div>
+        <div className="intro-body">
+          <h2>Lebih dari sekadar memilih rumah.</h2>
+          <p>
+            Kami mendampingi Anda dari pencarian rumah hingga memahami proses
+            pembelian. Dapatkan informasi tipe dan harga, cek ketersediaan unit,
+            jadwalkan kunjungan, dan bicarakan pilihan pembiayaan bersama tim kami.
+          </p>
+          <a className="text-link" href="#lokasi">
+            Kenali lokasi kami <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div className="intro-stat">
+          <span className="stat-mark">IR</span>
+          <span>Ruang untuk tumbuh,<br />mulai dari rumah.</span>
+        </div>
+      </section>
+
+      <section className="homes-section" id="hunian">
+        <div className="section-wrap">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">PILIHAN HUNIAN</span>
+              <h2>Temukan yang paling pas.</h2>
+            </div>
+            <p>
+              Pilih tipe yang sesuai kebutuhan Anda. Tanyakan ketersediaan unit
+              terbaru kepada tim pemasaran.
+            </p>
+          </div>
+          <div className="home-grid">
+            {homes.map((home, index) => (
+              <article className="home-card" key={home.name}>
+                <div
+                  className="home-image"
+                  style={{ backgroundImage: `url("${home.image}")` }}
+                  role="img"
+                  aria-label={`Ilustrasi ${home.name}`}
+                >
+                  <span className="home-label">{home.label}</span>
+                  <span className="home-index">0{index + 1}</span>
+                </div>
+                <div className="home-info">
+                  <div className="home-title-row">
+                    <h3>{home.name}</h3>
+                    <span className="home-size">{[36, 45, 60][index]} m²</span>
+                  </div>
+                  <p>{home.detail}</p>
+                  <div className="home-price-row">
+                    <span>
+                      <small>Harga indikatif mulai</small>
+                      <strong>{formatRupiah(home.price)}</strong>
+                    </span>
+                    <a
+                      className="round-link"
+                      href={whatsappLink(`Halo Intan Residence, saya tertarik dengan ${home.name}. Mohon info harga dan ketersediaan unit.`)}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Tanyakan ${home.name} melalui WhatsApp`}
+                    >
+                      ↗
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="price-disclaimer">
+            Harga dan ketersediaan bersifat indikatif dan dapat berubah. Hubungi
+            tim kami untuk informasi terbaru.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      </section>
+
+      <section className="calculator-section" id="simulasi">
+        <div className="section-wrap calculator-layout">
+          <div className="calculator-copy">
+            <span className="eyebrow">LANGKAH BERIKUTNYA</span>
+            <h2>Rencanakan cicilan, dengan lebih tenang.</h2>
+            <p>
+              Atur perkiraan uang muka, tenor, dan bunga untuk melihat estimasi
+              cicilan bulanan. Angka ini simulasi awal, bukan penawaran bank.
+            </p>
+            <div className="calculator-assurance">
+              <span aria-hidden="true">↗</span>
+              <span>Butuh hitungan yang lebih sesuai? Tim kami siap membantu.</span>
+            </div>
+            <a
+              className="text-link light-link"
+              href={whatsappLink("Halo Intan Residence, saya ingin konsultasi simulasi KPR.")}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Konsultasi via WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div className="calculator-panel">
+            <div className="calculator-panel-head">
+              <span>ESTIMASI PEMBIAYAAN</span>
+              <span className="calculator-symbol">⌂</span>
+            </div>
+            <label className="field-label" htmlFor="property-price">
+              Harga rumah
+            </label>
+            <select
+              className="select-field"
+              id="property-price"
+              value={propertyPrice}
+              onChange={(event) => setPropertyPrice(Number(event.target.value))}
+            >
+              {homes.map((home) => (
+                <option key={home.name} value={home.price}>
+                  {home.name} · {formatRupiah(home.price)}
+                </option>
+              ))}
+            </select>
+            <div className="range-heading">
+              <label className="field-label" htmlFor="down-payment">
+                Uang muka
+              </label>
+              <strong>{downPayment}%</strong>
+            </div>
+            <input
+              id="down-payment"
+              className="range-field"
+              type="range"
+              min="10"
+              max="50"
+              step="5"
+              value={downPayment}
+              onChange={(event) => setDownPayment(Number(event.target.value))}
             />
-            Deploy Now
+            <div className="range-ends">
+              <span>10%</span>
+              <span>{formatRupiah(propertyPrice * (downPayment / 100))}</span>
+              <span>50%</span>
+            </div>
+            <div className="field-pair">
+              <div>
+                <label className="field-label" htmlFor="term">
+                  Tenor
+                </label>
+                <select
+                  className="select-field"
+                  id="term"
+                  value={term}
+                  onChange={(event) => setTerm(Number(event.target.value))}
+                >
+                  {[10, 15, 20, 25, 30].map((year) => (
+                    <option value={year} key={year}>{year} tahun</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="field-label" htmlFor="interest-rate">
+                  Bunga / tahun
+                </label>
+                <div className="input-suffix">
+                  <input
+                    className="select-field"
+                    id="interest-rate"
+                    type="number"
+                    min="0"
+                    max="20"
+                    step="0.1"
+                    value={interestRate}
+                    onChange={(event) =>
+                      setInterestRate(Math.min(20, Math.max(0, Number(event.target.value))))
+                    }
+                  />
+                  <span>%</span>
+                </div>
+              </div>
+            </div>
+            <div className="estimate-result" aria-live="polite">
+              <span>Estimasi cicilan per bulan</span>
+              <strong>{formatRupiah(monthlyPayment)}</strong>
+              <small>Plafon simulasi {formatRupiah(loanAmount)}</small>
+            </div>
+            <p className="calculator-disclaimer">
+              Perhitungan anuitas ini belum termasuk biaya administrasi, asuransi,
+              pajak, dan ketentuan bank. Suku bunga dapat berubah.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="visit-section section-wrap" id="lokasi">
+        <div className="visit-mark" aria-hidden="true">IR</div>
+        <div className="visit-copy">
+          <span className="eyebrow">KUNJUNGI KAMI</span>
+          <h2>Lihat langsung, rasakan suasananya.</h2>
+          <p>
+            Susukan, Bojonggede, Kabupaten Bogor,<br />
+            Jawa Barat 16920
+          </p>
+        </div>
+        <div className="visit-actions">
+          <a
+            className="button button-dark"
+            href="https://maps.app.goo.gl/1Mqfr7zMdu81b1787"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Buka peta <span aria-hidden="true">↗</span>
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            className="visit-whatsapp"
+            href={whatsappLink("Halo Intan Residence, saya ingin menjadwalkan kunjungan ke lokasi perumahan.")}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
-            Documentation
+            Jadwalkan kunjungan
           </a>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <footer className="site-footer">
+        <a className="brand footer-brand" href="#beranda">
+          <span className="brand-mark">IR</span>
+          <span className="brand-name">
+            <strong>INTAN</strong>
+            <small>RESIDENCE</small>
+          </span>
+        </a>
+        <span>Kantor pemasaran perumahan · Bojonggede, Bogor</span>
+        <span>Intan Residence</span>
+      </footer>
+    </main>
   );
 }
