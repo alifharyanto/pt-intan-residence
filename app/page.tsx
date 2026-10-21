@@ -29,10 +29,10 @@ const homes = [
   },
 ];
 
-const whatsappNumber = "6287715332228";
+const whatsappNumber = "628558368067";
 
 const whatsappLink = (message: string) =>
-  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
 
 const formatRupiah = (value: number) =>
   new Intl.NumberFormat("id-ID", {
@@ -93,11 +93,11 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#beranda" aria-label="Intan Residence, beranda">
-          <span className="brand-mark">IR</span>
+        <a className="brand" href="#beranda" aria-label="PT. Cemerlang Duta Persada, beranda">
+          <span className="brand-mark">CDP</span>
           <span className="brand-name">
-            <strong>INTAN</strong>
-            <small>RESIDENCE</small>
+            <strong>CEMERLANG</strong>
+            <small>DUTA PERSADA</small>
           </span>
         </a>
         <nav className="main-nav" aria-label="Navigasi utama">
@@ -108,7 +108,7 @@ export default function Home() {
         </nav>
         <a
           className="header-cta"
-          href={whatsappLink("Halo Intan Residence, saya ingin berkonsultasi tentang rumah.")}
+          href={whatsappLink("Saya tertarik dengan unit Intan Residence")}
           target="_blank"
           rel="noreferrer"
         >
@@ -120,7 +120,7 @@ export default function Home() {
         <div className="hero-photo" role="img" aria-label="Rumah modern dengan taman yang asri" />
         <div className="hero-shade" />
         <div className="hero-content">
-          <p className="eyebrow hero-eyebrow">RUMAH NYAMAN, LANGKAH PERTAMA YANG BERARTI</p>
+          <p className="eyebrow hero-eyebrow">PT. CEMERLANG DUTA PERSADA · INTAN RESIDENCE</p>
           <h1>Temukan rumah yang terasa seperti pulang.</h1>
           <p className="hero-copy">
             Pilihan hunian untuk cerita baru Anda, di lingkungan yang tumbuh di
@@ -146,7 +146,7 @@ export default function Home() {
 
       <section className="intro section-wrap" id="tentang">
         <div className="intro-label" data-aos="fade-up">
-          <span className="eyebrow">TENTANG INTAN RESIDENCE</span>
+          <span className="eyebrow">TENTANG PT. CEMERLANG DUTA PERSADA</span>
           <span className="section-number">01 — 03</span>
         </div>
         <div className="intro-body" data-aos="fade-up">
@@ -155,8 +155,8 @@ export default function Home() {
             Kami mendampingi Anda dari pencarian rumah hingga memahami proses
             pembelian. Dapatkan informasi tipe dan harga, cek ketersediaan unit,
             jadwalkan kunjungan, dan bicarakan pilihan pembiayaan bersama tim kami.
-            Intan Residence merupakan kantor pemasaran perumahan dari PT Cemerlang
-            Duta Persada.
+            PT. Cemerlang Duta Persada memasarkan hunian Intan Residence dan
+            mendampingi calon pembeli selama proses pencarian hingga pembelian.
           </p>
           <a className="text-link" href="#lokasi">
             Kenali lokasi kami <span aria-hidden="true">↗</span>
@@ -205,7 +205,7 @@ export default function Home() {
                     </span>
                     <a
                       className="round-link"
-                      href={whatsappLink(`Halo Intan Residence, saya tertarik dengan ${home.name}. Mohon info harga dan ketersediaan unit.`)}
+                      href={whatsappLink(`Saya tertarik dengan unit Intan Residence, ${home.name}. Mohon info harga dan ketersediaan.`)}
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`Tanyakan ${home.name} melalui WhatsApp`}
@@ -239,7 +239,7 @@ export default function Home() {
             </div>
             <a
               className="text-link light-link"
-              href={whatsappLink("Halo Intan Residence, saya ingin konsultasi simulasi KPR.")}
+              href={whatsappLink("Saya tertarik dengan unit Intan Residence dan ingin konsultasi simulasi KPR.")}
               target="_blank"
               rel="noreferrer"
             >
@@ -358,7 +358,7 @@ export default function Home() {
           </a>
           <a
             className="visit-whatsapp"
-            href={whatsappLink("Halo Intan Residence, saya ingin menjadwalkan kunjungan ke lokasi perumahan.")}
+            href={whatsappLink("Saya tertarik dengan unit Intan Residence dan ingin menjadwalkan kunjungan.")}
             target="_blank"
             rel="noreferrer"
           >
@@ -369,16 +369,16 @@ export default function Home() {
 
       <footer className="site-footer">
         <a className="brand footer-brand" href="#beranda">
-          <span className="brand-mark">IR</span>
+          <span className="brand-mark">CDP</span>
           <span className="brand-name">
-            <strong>INTAN</strong>
-            <small>RESIDENCE</small>
+            <strong>CEMERLANG</strong>
+            <small>DUTA PERSADA</small>
           </span>
         </a>
         <div className="footer-info">
-          <span>Intan Residence by PT Cemerlang Duta Persada</span>
+          <span>PT. Cemerlang Duta Persada · Pemasaran Intan Residence</span>
           <div className="footer-contacts">
-            <a href="tel:+6287715332228">0877 1533 2228</a>
+            <a href="tel:+628558368067">0855 8368 067</a>
             <a href="mailto:CEMERLANGDUTAPERSA@GMAIL.COM">Email</a>
             <a
               href="https://www.instagram.com/cemerlangdutapersada/"
@@ -388,7 +388,7 @@ export default function Home() {
               Instagram
             </a>
             <a
-              href={whatsappLink("Halo Intan Residence, saya ingin berkonsultasi tentang rumah.")}
+              href={whatsappLink("Saya tertarik dengan unit Intan Residence")}
               target="_blank"
               rel="noreferrer"
             >

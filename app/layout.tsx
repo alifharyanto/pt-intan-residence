@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intan Residence | Hunian Nyaman di Bojonggede",
+  title: "PT. Cemerlang Duta Persada | Intan Residence Bojonggede",
   description:
-    "Temukan pilihan rumah di Susukan, Bojonggede, Bogor. Lihat tipe hunian, simulasi KPR, dan konsultasikan rencana kunjungan bersama Intan Residence.",
+    "PT. Cemerlang Duta Persada memasarkan hunian Intan Residence di Susukan, Bojonggede, Bogor. Lihat pilihan rumah, simulasi KPR, dan konsultasikan kunjungan.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
